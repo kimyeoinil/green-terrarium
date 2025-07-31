@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import PaymentModal from '@/components/PaymentModal';
 import { programPrices } from '@/lib/tosspayments';
 
-export default function BookingPage() {
+function BookingForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showPayment, setShowPayment] = useState(false);
@@ -293,5 +293,13 @@ export default function BookingPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookingForm />
+    </Suspense>
   );
 }
