@@ -7,7 +7,7 @@ ADD COLUMN IF NOT EXISTS amount integer;
 -- payments 테이블 생성
 CREATE TABLE IF NOT EXISTS payments (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  booking_id uuid REFERENCES bookings(id),
+  booking_id integer REFERENCES bookings(id),
   payment_key text NOT NULL,
   order_id text NOT NULL,
   amount integer NOT NULL,
