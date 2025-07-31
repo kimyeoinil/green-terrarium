@@ -137,7 +137,7 @@ export default function AdminPage() {
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center">
               <span className="text-2xl">🦎</span>
-              <h1 className="ml-2 text-xl font-bold text-primary-700">초록빛 테라리움 - 관리자</h1>
+              <h1 className="ml-2 text-xl font-bold text-primary-700">초록빛 테라리움 - 관리자 v2</h1>
             </Link>
             <button
               onClick={() => setIsAuthenticated(false)}
