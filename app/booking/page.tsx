@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PaymentModal from '@/components/PaymentModal';
 import { programPrices } from '@/lib/tosspayments';
 
+export const dynamic = 'force-dynamic';
+
 function BookingForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
