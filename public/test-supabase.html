@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supabase 연결 테스트</title>
+</head>
+<body>
+    <h1>Supabase 연결 테스트</h1>
+    <button onclick="testConnection()">연결 테스트</button>
+    <button onclick="testBookings()">예약 데이터 확인</button>
+    <button onclick="testReviews()">리뷰 데이터 확인</button>
+    <div id="result"></div>
+
+    <script>
+        async function testConnection() {
+            try {
+                const response = await fetch('/api/bookings');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = '오류: ' + error.message;
+            }
+        }
+
+        async function testBookings() {
+            try {
+                const response = await fetch('/api/bookings');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = '<h3>예약 데이터:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = '오류: ' + error.message;
+            }
+        }
+
+        async function testReviews() {
+            try {
+                const response = await fetch('/api/reviews');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = '<h3>리뷰 데이터:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = '오류: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

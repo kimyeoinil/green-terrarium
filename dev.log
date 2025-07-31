@@ -1,0 +1,87 @@
+
+> green-terrarium@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.4.2
+   - Local:        http://localhost:3000
+   - Network:      http://10.255.255.254:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1938ms
+ ○ Compiling /api/bookings ...
+ ✓ Compiled /api/bookings in 9s (1344 modules)
+ GET /api/bookings 200 in 13725ms
+ ○ Compiling /booking ...
+ ✓ Compiled /booking in 2.7s (1688 modules)
+ GET /booking 200 in 3015ms
+ ✓ Compiled in 360ms (235 modules)
+ GET /booking 200 in 149ms
+ GET /booking 200 in 24ms
+New booking added to Google Sheets: {
+  id: '1753699478381',
+  name: '김현일',
+  phone: '01071812386',
+  email: 'riopold84@gmail.com',
+  program: 'terrarium',
+  date: '2025-08-07',
+  time: '16:30',
+  participants: '3',
+  message: '수의사 아저씨',
+  createdAt: '2025-07-28T10:44:38.381Z'
+}
+ POST /api/bookings 200 in 1993ms
+New booking added to Google Sheets: {
+  id: '1753699478932',
+  name: '김현일',
+  phone: '01071812386',
+  email: 'riopold84@gmail.com',
+  program: 'terrarium',
+  date: '2025-08-07',
+  time: '16:30',
+  participants: '3',
+  message: '수의사 아저씨',
+  createdAt: '2025-07-28T10:44:38.932Z'
+}
+ POST /api/bookings 200 in 962ms
+ ○ Compiling / ...
+ ✓ Compiled / in 887ms (1680 modules)
+ GET / 200 in 1179ms
+ GET / 200 in 50ms
+ ✓ Compiled in 51ms
+ ✓ Compiled in 473ms (222 modules)
+ ✓ Compiled in 165ms (236 modules)
+ ✓ Compiled in 137ms (236 modules)
+ ○ Compiling /api/test-sheets ...
+ ✓ Compiled /api/test-sheets in 1830ms (1380 modules)
+ GET /api/test-sheets 200 in 3878ms
+ GET /api/test-sheets 200 in 427ms
+ ✓ Compiled in 25ms
+ ✓ Compiled in 341ms (236 modules)
+ ✓ Compiled in 182ms (236 modules)
+ ✓ Compiled /api/test-sheets in 411ms (1158 modules)
+Initializing Google Sheets with: {
+  hasClientEmail: true,
+  hasPrivateKey: true,
+  privateKeyLength: 1707,
+  privateKeyStart: '-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w...',
+  hasNewlines: true,
+  hasEscapedNewlines: false
+}
+Google Sheets initialized successfully
+ GET /api/test-sheets 200 in 2598ms
+ ✓ Compiled in 315ms (222 modules)
+ ✓ Compiled in 29ms
+ ✓ Compiled in 261ms (236 modules)
+ ✓ Compiled in 152ms (236 modules)
+ ✓ Compiled in 137ms (236 modules)
+ ✓ Compiled in 153ms (236 modules)
+ ✓ Compiled in 143ms (236 modules)
+ ✓ Compiled in 192ms (236 modules)
+ ✓ Compiled in 226ms (236 modules)
+ ✓ Compiled in 147ms (236 modules)
+ ✓ Compiled in 508ms (222 modules)
+ ✓ Compiled in 278ms (236 modules)
+ ✓ Compiled in 161ms (236 modules)
+   Reload env: .env.local
+ ✓ Compiled in 1890ms (236 modules)
