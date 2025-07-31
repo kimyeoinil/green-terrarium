@@ -34,11 +34,29 @@ export default function PaymentModal({ isOpen, onClose, bookingData, onSuccess }
 
     try {
       setIsLoading(true);
+      console.log('토스페이먼츠 로딩 시작...', {
+        clientKey: tossPaymentsConfig.clientKey,
+        bookingData
+      });
+      
       const tossPayments = await loadTossPayments(tossPaymentsConfig.clientKey);
+      console.log('토스페이먼츠 SDK 로드 완료');
       
       const programInfo = programPrices[bookingData.program as keyof typeof programPrices];
+      if (!programInfo) {
+        throw new Error(`프로그램 정보를 찾을 수 없습니다: ${bookingData.program}`);
+      }
+      
       const amount = programInfo.price * parseInt(bookingData.participants);
       const orderId = `ORDER_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      
+      console.log('결제 요청 데이터:', {
+        amount,
+        orderId,
+        orderName: `${programInfo.name} - ${bookingData.participants}명`,
+        successUrl: `${window.location.origin}/api/payment/success`,
+        failUrl: `${window.location.origin}/api/payment/fail`
+      });
 
       // 결제 위젯 렌더링
       await tossPayments.requestPayment('카드', {
@@ -46,7 +64,7 @@ export default function PaymentModal({ isOpen, onClose, bookingData, onSuccess }
         orderId: orderId,
         orderName: `${programInfo.name} - ${bookingData.participants}명`,
         customerName: bookingData.name,
-        customerEmail: bookingData.email,
+        customerEmail: bookingData.email || undefined,
         customerMobilePhone: bookingData.phone.replace(/-/g, ''),
         successUrl: `${window.location.origin}/api/payment/success`,
         failUrl: `${window.location.origin}/api/payment/fail`,
@@ -56,7 +74,7 @@ export default function PaymentModal({ isOpen, onClose, bookingData, onSuccess }
       });
     } catch (error) {
       console.error('Payment error:', error);
-      alert('결제 중 오류가 발생했습니다.');
+      alert(`결제 중 오류가 발생했습니다: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
       onClose();
     } finally {
       setIsLoading(false);
