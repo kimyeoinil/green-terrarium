@@ -71,4 +71,4 @@ npm i @vercel/postgres
 
 - 전화: 02-1234-5678
 - 카카오톡: @초록테라리움
-- 주소: 서울시 마포구 와우산로 123
+- 주소: 서울시 마포구 와우산로 123// Trigger redeployment
