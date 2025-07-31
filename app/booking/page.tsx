@@ -1,11 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import PaymentModal from '@/components/PaymentModal';
+import { programPrices } from '@/lib/tosspayments';
 
 export default function BookingPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showPayment, setShowPayment] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -29,9 +33,38 @@ export default function BookingPage() {
     '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'
   ];
 
+  useEffect(() => {
+    // URL 파라미터 확인하여 결제 결과 처리
+    const success = searchParams.get('success');
+    const error = searchParams.get('error');
+    
+    if (success === 'true') {
+      alert('예약이 완료되었습니다! 확인 문자를 보내드렸습니다.');
+      router.push('/');
+    } else if (success === 'payment_only') {
+      alert('결제는 완료되었으나 예약 저장 중 오류가 발생했습니다. 고객센터로 문의해주세요.');
+      router.push('/');
+    } else if (error === 'payment_cancelled') {
+      alert('결제가 취소되었습니다.');
+    } else if (error === 'payment_failed') {
+      alert('결제 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  }, [searchParams, router]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // 폼 유효성 검사
+    if (!formData.name || !formData.phone || !formData.program || !formData.date || !formData.time) {
+      alert('필수 항목을 모두 입력해주세요.');
+      return;
+    }
+
+    // 결제 모달 표시
+    setShowPayment(true);
+  };
+
+  const handlePaymentSuccess = async () => {
     try {
       const response = await fetch('/api/bookings', {
         method: 'POST',
@@ -233,6 +266,15 @@ export default function BookingPage() {
             </ul>
           </div>
 
+          {formData.program && formData.participants && (
+            <div className="bg-gray-50 p-4 rounded-lg mb-6">
+              <h3 className="font-medium text-gray-800 mb-2">결제 금액</h3>
+              <p className="text-2xl font-bold text-primary-600">
+                {(programPrices[formData.program as keyof typeof programPrices]?.price * parseInt(formData.participants) || 0).toLocaleString()}원
+              </p>
+            </div>
+          )}
+
           <button
             type="submit"
             className="w-full bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
@@ -241,6 +283,15 @@ export default function BookingPage() {
           </button>
         </form>
       </section>
+
+      {showPayment && (
+        <PaymentModal
+          isOpen={showPayment}
+          onClose={() => setShowPayment(false)}
+          bookingData={formData}
+          onSuccess={handlePaymentSuccess}
+        />
+      )}
     </div>
   );
 }
